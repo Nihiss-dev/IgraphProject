@@ -37,5 +37,4 @@ void	Renderer::Draw()
 
 void	Renderer::Update()
 {
-
 }
