@@ -19,6 +19,7 @@ public:
 	ofFbo fbo;
 private:
 	std::vector<Object*> m_objects;
+	ofEasyCam *m_cam;
 };
 
 #endif //RENDERER_H_
