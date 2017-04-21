@@ -2,7 +2,7 @@
 
 Renderer::Renderer()
 {
-	m_objects.push_back(new Primitive(PrimitiveType::CUBE));
+	//m_objects.push_back(new Primitive(PrimitiveType::CUBE));
 	m_cam = new ofEasyCam();
 	m_cam->setPosition(0,0,0);
 }
@@ -37,4 +37,11 @@ void	Renderer::Draw()
 
 void	Renderer::Update()
 {
+
+}
+
+void	Renderer::AddObject(Object *object)
+{
+	object->Setup();
+	m_objects.push_back(object);
 }

@@ -16,6 +16,8 @@ public:
 	void Update();
 	void Draw();
 
+	void AddObject(Object *);
+
 	ofFbo fbo;
 private:
 	std::vector<Object*> m_objects;

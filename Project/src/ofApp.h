@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 #include "../Renderer.h"
+#include "../GUI.h"
+#include "../GeometryBar.h"
 
 class ofApp : public ofBaseApp{
 
@@ -23,4 +25,5 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 		Renderer *renderer;
+		GUI *m_gui;
 };

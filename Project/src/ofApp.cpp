@@ -5,6 +5,11 @@ void ofApp::setup(){
 	ofBackground(0);
 	renderer = new Renderer();
 	renderer->Setup();
+
+	m_gui = new GUI();
+	//Adds ToolBar
+	m_gui->Add(new GeometryBar(renderer));
+	m_gui->Setup();
 }
 
 //--------------------------------------------------------------
@@ -15,6 +20,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	renderer->Draw();
+	m_gui->Draw();
 }
 
 //--------------------------------------------------------------
