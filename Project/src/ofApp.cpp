@@ -4,6 +4,7 @@
 void ofApp::setup(){
 	ofBackground(0);
 	renderer = new Renderer();
+	renderer->Setup();
 }
 
 //--------------------------------------------------------------
