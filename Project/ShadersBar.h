@@ -18,11 +18,13 @@ public:
 
 	void EnableBlur();
 	void EnableGeometry();
+	void EnableNoise();
 	void DisableShaders();
 private:
 	ofxPanel m_ShadersPanel;
 	ofxButton m_BlurButton;
 	ofxButton m_GeometryButton;
+	ofxButton m_NoiseButton;
 	ofxButton m_NoShadersButton;
 
 	Renderer *m_renderer;

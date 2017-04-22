@@ -16,18 +16,22 @@ public:
 	void Draw();
 	void DrawBlur();
 	void DrawGeometry();
+	void DrawNoise();
 
 	void AddObject(Object *);
 	void AddLight(ofLight *);
 
 	void EnableBlur();
 	void EnableGeometry();
+	void EnableNoise();
 	void DisableBlur();
 	void DisableGeometry();
+	void DisableNoise();
 	void DisableAll();
 
 	void LoadBlurShader();
 	void LoadGeometryShader();
+	void LoadNoiseShader();
 
 	inline std::vector<Object*> GetObjects() { return m_objects; }
 	inline std::vector<ofLight*> GetLights() { return m_lights; }
@@ -50,6 +54,12 @@ private:
 	ofShader shaderGeometry;
 	std::vector<ofPoint> points;
 	bool m_geometryEnabled;
+
+	// noise
+	ofShader shaderNoise;
+	ofPlanePrimitive plane;
+	ofImage noiseImage;
+	bool m_noiseEnabled;
 
 };
 

@@ -1,7 +1,7 @@
 #include "Renderer.h"
 #include "src/ofApp.h"
 
-Renderer::Renderer() : m_blurEnabled(false), m_geometryEnabled(false)
+Renderer::Renderer() : m_blurEnabled(false), m_geometryEnabled(false), m_noiseEnabled(false)
 {
 	m_cam = new ofEasyCam();
 	m_cam->setPosition(0,0,0);
@@ -22,9 +22,9 @@ void	Renderer::Setup()
 	}
 
 	if (m_geometryEnabled)
-	{
 		LoadGeometryShader();
-	}
+	if (m_noiseEnabled)
+		LoadNoiseShader();
 }
 
 void	Renderer::DrawBlur()
@@ -85,12 +85,35 @@ void	Renderer::DrawGeometry()
 	ofPopMatrix();
 }
 
+void	Renderer::DrawNoise()
+{
+	noiseImage.getTexture().bind();
+	shaderNoise.begin();
+
+	ofPushMatrix();
+	float tx = ofGetWidth() / 2;
+	float ty = ofGetHeight() / 2;
+	ofTranslate(tx, ty);
+
+	float percentY = ofGetMouseY() / (float)ofGetHeight();
+	float rotation = ofMap(percentY, 0, 1, -60, 60, true) + 60;
+	ofRotate(rotation, 1, 0, 0);
+
+	plane.drawWireframe();
+	ofPopMatrix();
+	shaderNoise.end();
+	ofSetColor(ofColor::white);
+	noiseImage.draw(0,0);
+}
+
 void	Renderer::Draw()
 {
 	if (m_blurEnabled)
 		DrawBlur();
 	else if (m_geometryEnabled)
 		DrawGeometry();
+	else if (m_noiseEnabled)
+		DrawNoise();
 	else
 	{
 		fbo.begin();
@@ -120,7 +143,23 @@ void	Renderer::Draw()
 
 void	Renderer::Update()
 {
+	if (m_noiseEnabled)
+	{
+		float noiseScale = ofMap(ofGetMouseX(), 0, ofGetWidth(), 0, 0.1);
+		float noiseVel = ofGetElapsedTimef();
 
+		ofPixels &pixels = noiseImage.getPixels();
+		int w = noiseImage.getWidth();
+		int h = noiseImage.getHeight();
+		for (int y = 0; y < h; y++)
+			for (int x = 0; x < h; x++)
+			{
+				int i = y * w + x;
+				float noiseValue = ofNoise(x * noiseScale, y * noiseScale, noiseVel);
+				pixels[i] = 255 * noiseValue;
+			}
+		noiseImage.update();
+	}
 }
 
 void	Renderer::AddObject(Object *object)
@@ -142,12 +181,23 @@ void	Renderer::AddLight(ofLight *light)
 void	Renderer::EnableBlur()
 {
 	m_blurEnabled = true;
+	m_geometryEnabled = false;
+	m_noiseEnabled = false;
 	Setup();
 }
 
 void	Renderer::EnableGeometry()
 {
 	m_geometryEnabled = true;
+	m_blurEnabled = false;
+	m_noiseEnabled = false;
+	Setup();
+}
+
+void	Renderer::EnableNoise()
+{
+	m_noiseEnabled = true;
+	m_geometryEnabled = false;
 	m_blurEnabled = false;
 	Setup();
 }
@@ -160,6 +210,11 @@ void	Renderer::DisableBlur()
 void	Renderer::DisableGeometry()
 {
 	m_geometryEnabled = false;
+}
+
+void	Renderer::DisableNoise()
+{
+	m_noiseEnabled = false;
 }
 
 void	Renderer::DisableAll()
@@ -203,4 +258,21 @@ void	Renderer::LoadGeometryShader()
 	for (int i = 0; i < 100; i++)
 		points.push_back(ofPoint(ofRandomf() * r, ofRandomf() * r, ofRandomf() * r));
 	ofEnableDepthTest();
+}
+
+void	Renderer::LoadNoiseShader()
+{
+#ifdef TARGET_OPENGLES
+	shaderNoise.load("shadersES2/Noise/shader");
+#else
+	if (ofIsGLProgrammableRenderer())
+		shaderNoise.load("shadersGL3/Noise/shader");
+	else
+		shaderNoise.load("shadersGL2/Noise/shader");
+#endif
+
+	noiseImage.allocate(80, 60, OF_IMAGE_GRAYSCALE);
+
+	plane.set(800, 600, 80, 60);
+	plane.mapTexCoordsFromTexture(noiseImage.getTexture());
 }
