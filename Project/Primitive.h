@@ -26,6 +26,8 @@ public:
 private:
 	PrimitiveType m_type;
 	of3dPrimitive *m_primitive;
+
+	ofImage img;
 };
 
 #endif //PRIMITIVE_H_

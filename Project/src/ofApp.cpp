@@ -4,6 +4,7 @@
 void ofApp::setup(){
 	ofBackground(0);
 	ofSetSmoothLighting(true);
+	ofEnableNormalizedTexCoords();
 	renderer = new Renderer();
 	renderer->Setup();
 

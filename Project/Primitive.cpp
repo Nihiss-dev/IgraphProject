@@ -16,12 +16,12 @@ void	Primitive::Setup()
 	{
 	case CUBE:
 		m_primitive = new ofBoxPrimitive();
-		//m_primitive->setPosition(0,0,0);
 		break;
 	case SPHERE:
 		m_primitive = new ofSpherePrimitive();
-		//m_primitive->setPosition(0,0,0);
 	}
+	if (img.load("img.jpg") == false)
+		std::cout << "Can't open image" << std::endl;
 }
 
 void	Primitive::Update()
@@ -31,7 +31,11 @@ void	Primitive::Update()
 
 void	Primitive::Draw()
 {
+	ofPushMatrix();
+	img.bind();
 	m_primitive->draw();
+	img.unbind();
+	ofPopMatrix();
 }
 
 void	Primitive::Translate(Axis axis, float value)
