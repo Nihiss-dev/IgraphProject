@@ -19,6 +19,9 @@ public:
 	void AddObject(Object *);
 	void AddLight(ofLight *);
 
+	inline std::vector<Object*> GetObjects() { return m_objects; }
+	inline std::vector<ofLight*> GetLights() { return m_lights; }
+
 	ofFbo fbo;
 private:
 	std::vector<Object*> m_objects;

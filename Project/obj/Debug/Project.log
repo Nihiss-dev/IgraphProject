@@ -1,7 +1,4 @@
 ﻿  Renderer.cpp
-  main.cpp
-  ofApp.cpp
-     CrÚation de la bibliothÞque bin\Project_debug.lib et de l'objet bin\Project_debug.exp
   Project.vcxproj -> E:\work\VisualStudio\Project\Project\bin\Project_debug.exe
   Project.vcxproj -> bin\Project_debug.pdb (Full PDB)
   

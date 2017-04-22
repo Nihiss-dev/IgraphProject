@@ -3,6 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofBackground(0);
+	ofSetSmoothLighting(true);
 	renderer = new Renderer();
 	renderer->Setup();
 

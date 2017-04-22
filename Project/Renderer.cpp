@@ -14,10 +14,10 @@ Renderer::~Renderer()
 
 void	Renderer::Setup()
 {
-	fbo.begin();
+	/*fbo.begin();
 	for (std::vector<Object*>::iterator it = m_objects.begin(); it != m_objects.end(); it++)
 		(*it)->Setup();
-	fbo.end();
+	fbo.end();*/
 }
 
 void	Renderer::Draw()
@@ -53,11 +53,17 @@ void	Renderer::Update()
 
 void	Renderer::AddObject(Object *object)
 {
-	object->Setup();
+	//object->Setup();
 	m_objects.push_back(object);
 }
 
 void	Renderer::AddLight(ofLight *light)
 {
-	m_lights.push_back(light);
+	if (m_lights.size() == 8)
+	{
+		ofDrawBitmapString(ofToString("You can't add more than 8 lights in scene"), ofPoint(30, 75));
+		std::cout << "You can't add more than 8 lights in scene" << std::endl;
+	}
+	else
+		m_lights.push_back(light);
 }

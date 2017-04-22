@@ -22,6 +22,7 @@ public:
 
 	void Translate(Axis, float);
 	void Scale(float);
+	void SetPosition(float, float, float);
 private:
 	PrimitiveType m_type;
 	of3dPrimitive *m_primitive;
