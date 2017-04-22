@@ -1,6 +1,7 @@
 #include "LightsBar.h"
 
-LightsBar::LightsBar(Renderer *renderer) : m_renderer(renderer), m_visible(false), m_spotVisible(false), m_pointVisible(false)
+LightsBar::LightsBar(Renderer *renderer) : m_renderer(renderer), m_visible(false), m_spotVisible(false),
+	m_pointVisible(false), m_directionalVisible(false)
 {
 
 }
@@ -24,9 +25,14 @@ void	LightsBar::Setup()
 	m_PointPanel.setName("PointLight");
 	m_PointPanel.setPosition(440,0);
 
+	m_DirectionalPanel.setup();
+	m_DirectionalPanel.setName("DirectionalLight");
+	m_DirectionalPanel.setPosition(440,0);
+
 	// Add buttons
 	m_panel.add(m_addSpotLight.setup("SpotLight"));
 	m_panel.add(m_addPointLight.setup("PointLight"));
+	m_panel.add(m_addDirectionalLight.setup("DirectionalLight"));
 
 	m_SpotPanel.add(m_SpotX.setup("SpotX", 0, -500, 500));
 	m_SpotPanel.add(m_SpotY.setup("SpotY", 0, -500, 500));
@@ -46,10 +52,23 @@ void	LightsBar::Setup()
 	m_PointPanel.add(m_PointColorB.setup("Point Color B", 255, 0, 255));
 	m_PointPanel.add(m_PointCreate.setup("Create Point Light"));
 
+	m_DirectionalPanel.add(m_DirectionalX.setup("DirectionalX", 0, -500, 500));
+	m_DirectionalPanel.add(m_DirectionalY.setup("DirectionalY", 0, -500, 500));
+	m_DirectionalPanel.add(m_DirectionalZ.setup("DirectionalZ", 0, -500, 500));
+	m_DirectionalPanel.add(m_DirectionalDirectionX.setup("Directional Direction X", 0, -180, 180));
+	m_DirectionalPanel.add(m_DirectionalDirectionY.setup("Directional Direction Y", 0, -180, 180));
+	m_DirectionalPanel.add(m_DirectionalDirectionZ.setup("Directional Direction Z", 0, -180, 180));
+	m_DirectionalPanel.add(m_DirectionalColorR.setup("Directional Color R", 255, 0, 255));
+	m_DirectionalPanel.add(m_DirectionalColorG.setup("Directional Color G", 255, 0, 255));
+	m_DirectionalPanel.add(m_DirectionalColorB.setup("Directional Color B", 255, 0, 255));
+	m_DirectionalPanel.add(m_DirectionalCreate.setup("Create Directional light"));
+
 	m_addSpotLight.addListener(this, &LightsBar::AddSpotLight);
 	m_addPointLight.addListener(this, &LightsBar::AddPointLight);
+	m_addDirectionalLight.addListener(this, &LightsBar::AddDirectionalLight);
 	m_SpotCreate.addListener(this, &LightsBar::CreateSpotLight);
 	m_PointCreate.addListener(this, &LightsBar::CreatePointLight);
+	m_DirectionalCreate.addListener(this, &LightsBar::CreateDirectionalLight);
 }
 
 void	LightsBar::Draw()
@@ -60,6 +79,8 @@ void	LightsBar::Draw()
 		m_SpotPanel.draw();
 	if (m_pointVisible)
 		m_PointPanel.draw();
+	if (m_directionalVisible)
+		m_DirectionalPanel.draw();
 }
 
 void	LightsBar::Show()
@@ -72,18 +93,28 @@ void	LightsBar::Hide()
 	m_visible = false;
 	m_spotVisible = false;
 	m_pointVisible = false;
+	m_directionalVisible = false;
 }
 
 void	LightsBar::AddSpotLight()
 {
 	m_spotVisible = true;
 	m_pointVisible = false;
+	m_directionalVisible = false;
 }
 
 void	LightsBar::AddPointLight()
 {
 	m_spotVisible = false;
 	m_pointVisible = true;
+	m_directionalVisible = false;
+}
+
+void	LightsBar::AddDirectionalLight()
+{
+	m_directionalVisible = true;
+	m_spotVisible = false;
+	m_pointVisible = false;
 }
 
 void	LightsBar::CreateSpotLight()
@@ -126,5 +157,28 @@ void	LightsBar::CreatePointLight()
 	light->setPointLight();
 	light->setPosition(x, y, z);
 
+	m_renderer->AddLight(light);
+}
+
+void	LightsBar::CreateDirectionalLight()
+{
+	float x = m_DirectionalX;
+	float y = m_DirectionalY;
+	float z = m_DirectionalZ;
+
+	float ox = m_DirectionalDirectionX;
+	float oy = m_DirectionalDirectionY;
+	float oz = m_DirectionalDirectionZ;
+
+	float r = m_DirectionalColorR;
+	float g = m_DirectionalColorG;
+	float b = m_DirectionalColorB;
+
+	ofLight *light = new ofLight();
+	light->setDiffuseColor(ofColor(r, g, b));
+	light->setSpecularColor(ofColor(r, g, b));
+	light->setDirectional();
+	light->setOrientation(ofVec3f(ox, oy, oz));
+	light->setPosition(x, y, z);
 	m_renderer->AddLight(light);
 }
