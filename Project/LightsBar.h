@@ -26,15 +26,18 @@ public:
 	void AddSpotLight();
 	void AddPointLight();
 	void AddDirectionalLight();
+	void AddAmbiantLight();
 	void CreateSpotLight();
 	void CreatePointLight();
 	void CreateDirectionalLight();
+	void CreateAmbiantLight();
 private:
 	// Main panel
 	ofxPanel m_panel;
 	ofxButton m_addSpotLight;
 	ofxButton m_addPointLight;
 	ofxButton m_addDirectionalLight;
+	ofxButton m_addAmbiantLight;
 
 	// Panel for spotlight
 	ofxPanel m_SpotPanel;
@@ -71,12 +74,23 @@ private:
 	ofxFloatSlider m_DirectionalColorB;
 	ofxButton m_DirectionalCreate;
 
+	// Panel for ambiantlight
+	ofxPanel m_AmbiantPanel;
+	ofxFloatSlider m_AmbiantX;
+	ofxFloatSlider m_AmbiantY;
+	ofxFloatSlider m_AmbiantZ;
+	ofxFloatSlider m_AmbiantColorR;
+	ofxFloatSlider m_AmbiantColorG;
+	ofxFloatSlider m_AmbiantColorB;
+	ofxButton m_AmbiantCreate;
+
 	Renderer *m_renderer;
 
 	bool m_visible;
 	bool m_spotVisible;
 	bool m_pointVisible;
 	bool m_directionalVisible;
+	bool m_ambiantVisible;
 };
 
 #endif //LIGHTSBAR_H_
