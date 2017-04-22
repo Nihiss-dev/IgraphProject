@@ -27,19 +27,20 @@ void	Renderer::Draw()
 	ofEnableLighting();
 	m_cam->begin();
 
-	// enable lights
 	for (std::vector<ofLight*>::iterator it = m_lights.begin(); it != m_lights.end(); it++)
 		(*it)->enable();
-
+	
 	for (std::vector<Object*>::iterator it = m_objects.begin(); it != m_objects.end(); it++)
+	{
 		(*it)->Draw();
-
-	m_cam->end();
-	ofDisableDepthTest();
+	}
 	ofDisableLighting();
+	ofDisableDepthTest();
 
 	for (std::vector<ofLight*>::iterator it = m_lights.begin(); it != m_lights.end(); it++)
-		(*it)->draw();
+		(*it)->disable();
+
+	m_cam->end();
 
 	fbo.end();
 	fbo.draw(0,0);

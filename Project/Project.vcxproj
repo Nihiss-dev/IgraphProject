@@ -188,6 +188,7 @@ C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addo
     <ClCompile Include="C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.cpp" />
     <ClCompile Include="GeometryBar.cpp" />
     <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="LightsBar.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -205,6 +206,7 @@ C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addo
     <ClInclude Include="C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="GeometryBar.h" />
     <ClInclude Include="GUI.h" />
+    <ClInclude Include="LightsBar.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Renderer.h" />

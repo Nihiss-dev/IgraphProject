@@ -24,11 +24,14 @@ public:
 	void Hide();
 
 	void AddSpotLight();
+	void AddPointLight();
 	void CreateSpotLight();
+	void CreatePointLight();
 private:
 	// Main panel
 	ofxPanel m_panel;
 	ofxButton m_addSpotLight;
+	ofxButton m_addPointLight;
 
 	// Panel for spotlight
 	ofxPanel m_SpotPanel;
@@ -42,10 +45,21 @@ private:
 	ofxFloatSlider m_SpotConcentration;
 	ofxButton m_SpotCreate;
 
+	// Panel for pointlight
+	ofxPanel m_PointPanel;
+	ofxFloatSlider m_PointX;
+	ofxFloatSlider m_PointY;
+	ofxFloatSlider m_PointZ;
+	ofxFloatSlider m_PointColorR;
+	ofxFloatSlider m_PointColorG;
+	ofxFloatSlider m_PointColorB;
+	ofxButton m_PointCreate;
+
 	Renderer *m_renderer;
 
 	bool m_visible;
 	bool m_spotVisible;
+	bool m_pointVisible;
 };
 
 #endif //LIGHTSBAR_H_
