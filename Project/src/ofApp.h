@@ -26,4 +26,5 @@ class ofApp : public ofBaseApp{
 		
 		Renderer *renderer;
 		GUI *m_gui;
+
 };

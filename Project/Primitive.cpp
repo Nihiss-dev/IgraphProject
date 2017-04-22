@@ -20,8 +20,6 @@ void	Primitive::Setup()
 	case SPHERE:
 		m_primitive = new ofSpherePrimitive();
 	}
-	if (img.load("img.jpg") == false)
-		std::cout << "Can't open image" << std::endl;
 }
 
 void	Primitive::Update()
@@ -31,11 +29,7 @@ void	Primitive::Update()
 
 void	Primitive::Draw()
 {
-	ofPushMatrix();
-	img.bind();
 	m_primitive->draw();
-	img.unbind();
-	ofPopMatrix();
 }
 
 void	Primitive::Translate(Axis axis, float value)

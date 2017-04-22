@@ -223,9 +223,6 @@ void	LightsBar::CreateAmbiantLight()
 	float b = m_AmbiantColorB;
 
 	ofLight *light = new ofLight();
-	//light->setDiffuseColor(ofColor(r, g, b));
-	//light->setSpecularColor(ofColor(r, g, b));
 	light->setAmbientColor(ofColor(r, g, b));
-	//light->setPosition(x, y, z);
 	m_renderer->AddLight(light);
 }

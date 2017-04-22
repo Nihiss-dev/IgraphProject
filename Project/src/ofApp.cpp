@@ -2,21 +2,18 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	ofBackground(0);
+	ofBackground(255);
 	ofSetSmoothLighting(true);
-	ofEnableNormalizedTexCoords();
 	renderer = new Renderer();
 	renderer->Setup();
 
 	m_gui = new GUI(renderer);
-	//Adds ToolBar
-	//m_gui->Add(new GeometryBar(renderer));
 	m_gui->Setup();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
 }
 
 //--------------------------------------------------------------

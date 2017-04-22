@@ -191,6 +191,7 @@ C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addo
     <ClCompile Include="LightsBar.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="ShadersBar.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
   </ItemGroup>
@@ -210,6 +211,7 @@ C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addo
     <ClInclude Include="Object.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="ShadersBar.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="ToolBar.h" />
   </ItemGroup>
