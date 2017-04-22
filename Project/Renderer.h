@@ -17,10 +17,12 @@ public:
 	void Draw();
 
 	void AddObject(Object *);
+	void AddLight(ofLight *);
 
 	ofFbo fbo;
 private:
 	std::vector<Object*> m_objects;
+	std::vector<ofLight*> m_lights;
 	ofEasyCam *m_cam;
 };
 

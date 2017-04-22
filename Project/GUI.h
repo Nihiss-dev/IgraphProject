@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "GeometryBar.h"
+#include "LightsBar.h"
 
 class GUI
 {
@@ -14,12 +15,15 @@ public:
 	void Draw();
 
 	void GeometryClicked();
+	void LightsClicked();
 private:
 	Renderer *m_renderer;
 	GeometryBar *m_geometrybar;
+	LightsBar *m_lightsbar;
 
 	ofxPanel *m_mainPanel;
 	ofxButton m_geometryButton;
+	ofxButton m_lightsButton;
 };
 
 #endif //GUI_H_
