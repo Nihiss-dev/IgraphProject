@@ -6,9 +6,9 @@ void ofApp::setup(){
 	renderer = new Renderer();
 	renderer->Setup();
 
-	m_gui = new GUI();
+	m_gui = new GUI(renderer);
 	//Adds ToolBar
-	m_gui->Add(new GeometryBar(renderer));
+	//m_gui->Add(new GeometryBar(renderer));
 	m_gui->Setup();
 }
 

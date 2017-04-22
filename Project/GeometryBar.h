@@ -17,12 +17,15 @@ public:
 	void Hide();
 
 	void AddCube();
+	void AddSphere();
 private:
 	ofxPanel m_panel;
 	ofxButton m_addCube;
 	ofxButton m_addSphere;
 
 	Renderer *m_renderer;
+
+	bool m_visible;
 };
 
 #endif //GEOMETRYBAR_H_

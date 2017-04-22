@@ -1,6 +1,6 @@
 #include "GeometryBar.h"
 
-GeometryBar::GeometryBar(Renderer *renderer) : m_renderer(renderer)
+GeometryBar::GeometryBar(Renderer *renderer) : m_renderer(renderer), m_visible(false)
 {
 
 }
@@ -14,7 +14,7 @@ void	GeometryBar::Setup()
 {
 	m_panel.setup();
 	m_panel.setName("Geometry");
-	m_panel.setPosition(0,0);
+	m_panel.setPosition(225,0);
 
 	//Add buttons
 	m_panel.add(m_addCube.setup("Cube"));
@@ -22,24 +22,31 @@ void	GeometryBar::Setup()
 
 	//Add listeners
 	m_addCube.addListener(this, &GeometryBar::AddCube);
+	m_addSphere.addListener(this, &GeometryBar::AddSphere);
 }
 
 void	GeometryBar::Draw()
 {
-	m_panel.draw();
+	if (m_visible)
+		m_panel.draw();
 }
 
 void	GeometryBar::Show()
 {
-
+	m_visible = true;
 }
 
 void	GeometryBar::Hide()
 {
-
+	m_visible = false;
 }
 
 void	GeometryBar::AddCube()
 {
 	m_renderer->AddObject(new Primitive(PrimitiveType::CUBE));
+}
+
+void	GeometryBar::AddSphere()
+{
+	m_renderer->AddObject(new Primitive(PrimitiveType::SPHERE));
 }
