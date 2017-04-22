@@ -20,6 +20,7 @@ public:
 private:
 	ofxPanel m_panel;
 	ofxButton m_addCube;
+	ofxButton m_addSphere;
 
 	Renderer *m_renderer;
 };

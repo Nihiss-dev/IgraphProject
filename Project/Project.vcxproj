@@ -22,6 +22,7 @@
     <ProjectGuid>{7FD42DF7-442E-479A-BA76-D0022F99702A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Project</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -187,6 +188,9 @@ C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addo
     <ClCompile Include="C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.cpp" />
     <ClCompile Include="C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.cpp" />
+    <ClCompile Include="GeometryBar.cpp" />
+    <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
@@ -201,8 +205,13 @@ C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addo
     <ClInclude Include="C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.h" />
     <ClInclude Include="C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="C:\Users\Alexis Feldmar\Downloads\of_v0.9.8_vs_release\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h" />
+    <ClInclude Include="GeometryBar.h" />
+    <ClInclude Include="GUI.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Primitive.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="ToolBar.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

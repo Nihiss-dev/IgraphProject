@@ -18,6 +18,7 @@ void	GeometryBar::Setup()
 
 	//Add buttons
 	m_panel.add(m_addCube.setup("Cube"));
+	m_panel.add(m_addSphere.setup("Sphere"));
 
 	//Add listeners
 	m_addCube.addListener(this, &GeometryBar::AddCube);
