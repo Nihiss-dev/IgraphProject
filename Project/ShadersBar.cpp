@@ -17,9 +17,11 @@ void	ShadersBar::Setup()
 	m_ShadersPanel.setPosition(225,0);
 
 	m_ShadersPanel.add(m_BlurButton.setup("Add blur"));
+	m_ShadersPanel.add(m_GeometryButton.setup("Geometry Shader"));
 	m_ShadersPanel.add(m_NoShadersButton.setup("Don't use shaders"));
 
 	m_BlurButton.addListener(this, &ShadersBar::EnableBlur);
+	m_GeometryButton.addListener(this, &ShadersBar::EnableGeometry);
 	m_NoShadersButton.addListener(this, &ShadersBar::DisableShaders);
 }
 
@@ -42,6 +44,11 @@ void	ShadersBar::Hide()
 void	ShadersBar::EnableBlur()
 {
 	m_renderer->EnableBlur();
+}
+
+void	ShadersBar::EnableGeometry()
+{
+	m_renderer->EnableGeometry();
 }
 
 void	ShadersBar::DisableShaders()

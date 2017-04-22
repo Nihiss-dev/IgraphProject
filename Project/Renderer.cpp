@@ -1,7 +1,7 @@
 #include "Renderer.h"
 #include "src/ofApp.h"
 
-Renderer::Renderer() : m_blurEnabled(false)
+Renderer::Renderer() : m_blurEnabled(false), m_geometryEnabled(false)
 {
 	m_cam = new ofEasyCam();
 	m_cam->setPosition(0,0,0);
@@ -20,9 +20,14 @@ void	Renderer::Setup()
 		fboBlurOnePass.allocate(1024,768);
 		fboBlurTwoPass.allocate(1024,768);
 	}
+
+	if (m_geometryEnabled)
+	{
+		LoadGeometryShader();
+	}
 }
 
-void	Renderer::DrawShaders()
+void	Renderer::DrawBlur()
 {
 	float blur = ofMap(ofGetMouseX(), 0, ofGetWidth(), 0, 10, true);
 
@@ -59,10 +64,33 @@ void	Renderer::DrawShaders()
 	fboBlurTwoPass.draw(0,0);
 }
 
+void	Renderer::DrawGeometry()
+{
+	ofPushMatrix();
+
+	shaderGeometry.begin();
+	shaderGeometry.setUniform1f("thickness", 20);
+	shaderGeometry.setUniform3f("lightDir", sin(ofGetElapsedTimef() / 10), cos(ofGetElapsedTimef() / 10), 0);
+
+	ofColor(255);
+
+	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2, 0);
+	ofRotateX(ofGetMouseY());
+	ofRotateY(ofGetMouseX());
+
+	for (unsigned int i = 1; i < points.size(); i++)
+		ofDrawLine(points[i - 1], points[i]);
+
+	shaderGeometry.end();
+	ofPopMatrix();
+}
+
 void	Renderer::Draw()
 {
 	if (m_blurEnabled)
-		DrawShaders();
+		DrawBlur();
+	else if (m_geometryEnabled)
+		DrawGeometry();
 	else
 	{
 		fbo.begin();
@@ -117,14 +145,27 @@ void	Renderer::EnableBlur()
 	Setup();
 }
 
+void	Renderer::EnableGeometry()
+{
+	m_geometryEnabled = true;
+	m_blurEnabled = false;
+	Setup();
+}
+
 void	Renderer::DisableBlur()
 {
 	m_blurEnabled = false;
 }
 
+void	Renderer::DisableGeometry()
+{
+	m_geometryEnabled = false;
+}
+
 void	Renderer::DisableAll()
 {
 	m_blurEnabled = false;
+	m_geometryEnabled = false;
 }
 
 void	Renderer::LoadBlurShader()
@@ -148,4 +189,18 @@ void	Renderer::LoadBlurShader()
 		shaderBlurY.load("shadersGL2/Blur/shaderBlurY");
 	}
 #endif
+}
+
+void	Renderer::LoadGeometryShader()
+{
+	ofEnableAlphaBlending();
+	shaderGeometry.setGeometryInputType(GL_LINES);
+	shaderGeometry.setGeometryOutputType(GL_TRIANGLE_STRIP);
+	shaderGeometry.setGeometryOutputCount(4);
+	shaderGeometry.load("shaderGeometry/vert.glsl", "shaderGeometry/frag.glsl", "shaderGeometry/geom.glsl");
+
+	float r = ofGetHeight() / 2;
+	for (int i = 0; i < 100; i++)
+		points.push_back(ofPoint(ofRandomf() * r, ofRandomf() * r, ofRandomf() * r));
+	ofEnableDepthTest();
 }

@@ -17,10 +17,12 @@ public:
 	void Hide();
 
 	void EnableBlur();
+	void EnableGeometry();
 	void DisableShaders();
 private:
 	ofxPanel m_ShadersPanel;
 	ofxButton m_BlurButton;
+	ofxButton m_GeometryButton;
 	ofxButton m_NoShadersButton;
 
 	Renderer *m_renderer;
