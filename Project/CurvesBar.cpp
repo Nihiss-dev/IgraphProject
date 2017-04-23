@@ -1,7 +1,7 @@
 #include "CurvesBar.h"
 
 CurvesBar::CurvesBar(Renderer *renderer) : m_renderer(renderer), m_visible(false), m_BezierEnabled(false), m_drawBezier(false),
-	m_HermiteEnabled(false), m_drawHermite(false)
+	m_HermiteEnabled(false), m_drawHermite(false), m_CatmullRomenabled(false), m_drawCatmullRom(false)
 {
 
 }
@@ -25,8 +25,13 @@ void	CurvesBar::Setup()
 	m_HermiteCurvesPanel.setName("Create Hermite curve");
 	m_HermiteCurvesPanel.setPosition(440,0);
 
+	m_CatmullRomPanel.setup();
+	m_CatmullRomPanel.setName("Create CatmullRom Patch");
+	m_CatmullRomPanel.setPosition(440,0);
+
 	m_panel.add(m_BezierCubicButton.setup("Add Bezier Cubic Curve"));
 	m_panel.add(m_HermiteCubicButton.setup("Add Hermite Cubic Curve"));
+	m_panel.add(m_CatmullRomPatchButton.setup("Add CatmullRom"));
 
 	m_BezierCurvesPanel.add(m_BezierPt1X.setup("Bezier Point1 X", 0, -500, 500));
 	m_BezierCurvesPanel.add(m_BezierPt1Y.setup("Bezier Point1 Y", 0, -500, 500));
@@ -56,11 +61,27 @@ void	CurvesBar::Setup()
 	m_HermiteCurvesPanel.add(m_HermiteVct2Z.setup("Hermite Vector2 Z", 0, -500, 500));
 	m_HermiteCurvesPanel.add(m_CreateHermite.setup("Draw Hermite Curve"));
 
+	m_CatmullRomPanel.add(m_CatmullRomPt1X.setup("CatmullRom Point1 X", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CatmullRomPt1Y.setup("CatmullRom Point1 Y", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CatmullRomPt1Z.setup("CatmullRom Point1 Z", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CatmullRomPt2X.setup("CatmullRom Point2 X", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CatmullRomPt2Y.setup("CatmullRom Point2 Y", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CatmullRomPt2Z.setup("CatmullRom Point2 Z", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CatmullRomPt3X.setup("CatmullRom Point3 X", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CatmullRomPt3Y.setup("CatmullRom Point3 Y", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CatmullRomPt3Z.setup("CatmullRom Point3 Z", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CatmullRomPt4X.setup("CatmullRom Point4 X", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CatmullRomPt4Y.setup("CatmullRom Point4 Y", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CatmullRomPt4Z.setup("CatmullRom Point4 Z", 0, -500, 500));
+	m_CatmullRomPanel.add(m_CreateCatmullRom.setup("Draw CatmullRom Patch"));
+
 
 	m_BezierCubicButton.addListener(this, &CurvesBar::AddBezierCubicCurve);
 	m_HermiteCubicButton.addListener(this, &CurvesBar::AddHermiteCubicCurve);
+	m_CatmullRomPatchButton.addListener(this, &CurvesBar::AddCatmullRomPatch);
 	m_CreateBezier.addListener(this, &CurvesBar::DrawBezierCurve);
 	m_CreateHermite.addListener(this, &CurvesBar::DrawHermiteCubicCurve);
+	m_CreateCatmullRom.addListener(this, &CurvesBar::DrawCatmullRomPatch);
 }
 
 void	CurvesBar::Draw()
@@ -71,6 +92,8 @@ void	CurvesBar::Draw()
 		m_BezierCurvesPanel.draw();
 	if (m_HermiteEnabled)
 		m_HermiteCurvesPanel.draw();
+	if (m_CatmullRomenabled)
+		m_CatmullRomPanel.draw();
 	if (m_drawBezier)
 	{
 		ofSetHexColor(0xFF0000);
@@ -83,6 +106,16 @@ void	CurvesBar::Draw()
 	}
 	if (m_drawHermite)
 		DrawHermite();
+	if (m_drawCatmullRom)
+	{
+		ofSetHexColor(0xFF0000);
+		ofNoFill();
+		ofDrawCurve(m_CatmullRomPt1X, m_CatmullRomPt1Y, m_CatmullRomPt1Z,
+			m_CatmullRomPt2X, m_CatmullRomPt2Y, m_CatmullRomPt2Z,
+			m_CatmullRomPt3X, m_CatmullRomPt3Y, m_CatmullRomPt3Z,
+			m_CatmullRomPt4X, m_CatmullRomPt4Y, m_CatmullRomPt4Z);
+		ofSetHexColor(0xFFFFFF);
+	}
 }
 
 void	CurvesBar::Show()
@@ -96,6 +129,7 @@ void	CurvesBar::Hide()
 	m_BezierEnabled = false;
 	m_drawBezier = false;
 	m_HermiteEnabled = false;
+	m_CatmullRomenabled = false;
 }
 
 void	CurvesBar::AddBezierCubicCurve()
@@ -108,6 +142,11 @@ void	CurvesBar::AddHermiteCubicCurve()
 	m_HermiteEnabled = true;
 }
 
+void	CurvesBar::AddCatmullRomPatch()
+{
+	m_CatmullRomenabled = true;
+}
+
 void	CurvesBar::DrawBezierCurve()
 {
 	m_drawBezier = true;
@@ -116,6 +155,11 @@ void	CurvesBar::DrawBezierCurve()
 void	CurvesBar::DrawHermiteCubicCurve()
 {
 	m_drawHermite = true;
+}
+
+void	CurvesBar::DrawCatmullRomPatch()
+{
+	m_drawCatmullRom = true;
 }
 
 void	CurvesBar::DrawHermite()
@@ -133,4 +177,9 @@ void	CurvesBar::DrawHermite()
 	ofSetHexColor(0xFF0000);
 	line.draw();
 	ofSetHexColor(0xFFFFFF);
+}
+
+void	CurvesBar::DrawCatmullRom()
+{
+	
 }
