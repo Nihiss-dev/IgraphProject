@@ -34,6 +34,18 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryBar.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="LightsBar.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -81,6 +93,24 @@
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolBar.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryBar.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="LightsBar.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

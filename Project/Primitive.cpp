@@ -16,11 +16,9 @@ void	Primitive::Setup()
 	{
 	case CUBE:
 		m_primitive = new ofBoxPrimitive();
-		m_primitive->setPosition(0,0,0);
 		break;
 	case SPHERE:
 		m_primitive = new ofSpherePrimitive();
-		m_primitive->setPosition(0,0,0);
 	}
 }
 
@@ -42,4 +40,9 @@ void	Primitive::Translate(Axis axis, float value)
 void	Primitive::Scale(float value)
 {
 
+}
+
+void	Primitive::SetPosition(float x, float y, float z)
+{
+	m_primitive->setPosition(x, y, z);
 }

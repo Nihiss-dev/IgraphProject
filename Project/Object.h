@@ -16,6 +16,7 @@ public:
 
 	virtual void Translate(Axis, float) = 0;
 	virtual void Scale(float) = 0;
+	virtual void SetPosition(float, float, float) = 0;
 };
 
 #endif //OBJECT_H_

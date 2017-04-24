@@ -2,19 +2,24 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	ofBackground(0);
+	ofBackground(255);
+	ofSetSmoothLighting(true);
 	renderer = new Renderer();
 	renderer->Setup();
+
+	m_gui = new GUI(renderer);
+	m_gui->Setup();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	renderer->Draw();
+	m_gui->Draw();
 }
 
 //--------------------------------------------------------------
