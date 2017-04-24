@@ -7,6 +7,8 @@ GUI::GUI(Renderer *renderer) : m_renderer(renderer)
 	m_mainPanel = new ofxPanel();
 	m_shadersbar = new ShadersBar(m_renderer);
 	m_curvesbar = new CurvesBar(m_renderer);
+
+	m_rt = false;
 }
 
 GUI::~GUI()
@@ -31,12 +33,14 @@ void	GUI::Setup()
 	m_mainPanel->add(m_lightsButton.setup("Lights"));
 	m_mainPanel->add(m_shadersButton.setup("Shaders"));
 	m_mainPanel->add(m_curvesButton.setup("Curves"));
+	m_mainPanel->add(m_raytracingButton.setup("Raytracing"));
 
 	// Set listener
 	m_geometryButton.addListener(this, &GUI::GeometryClicked);
 	m_lightsButton.addListener(this, &GUI::LightsClicked);
 	m_shadersButton.addListener(this, &GUI::ShadersClicked);
 	m_curvesButton.addListener(this, &GUI::CurvesClicked);
+	m_raytracingButton.addListener(this, &GUI::RaytracingClicked);
 }
 
 void	GUI::Draw()
@@ -46,6 +50,9 @@ void	GUI::Draw()
 	m_lightsbar->Draw();
 	m_shadersbar->Draw();
 	m_curvesbar->Draw();
+
+	if (m_rt)
+		m_raytracing.Draw();
 }
 
 void	GUI::GeometryClicked()
@@ -54,6 +61,7 @@ void	GUI::GeometryClicked()
 	m_lightsbar->Hide();
 	m_shadersbar->Hide();
 	m_curvesbar->Hide();
+	m_rt = false;
 	//hide other if needed
 }
 
@@ -63,6 +71,7 @@ void	GUI::LightsClicked()
 	m_lightsbar->Show();
 	m_shadersbar->Hide();
 	m_curvesbar->Hide();
+	m_rt = false;
 }
 
 void	GUI::ShadersClicked()
@@ -71,6 +80,7 @@ void	GUI::ShadersClicked()
 	m_lightsbar->Hide();
 	m_shadersbar->Show();
 	m_curvesbar->Hide();
+	m_rt = false;
 }
 
 void	GUI::CurvesClicked()
@@ -79,4 +89,18 @@ void	GUI::CurvesClicked()
 	m_lightsbar->Hide();
 	m_shadersbar->Hide();
 	m_curvesbar->Show();
+	m_rt = false;
+}
+
+void	GUI::RaytracingClicked()
+{
+	m_geometrybar->Hide();
+	m_lightsbar->Hide();
+	m_shadersbar->Hide();
+	m_curvesbar->Hide();
+	m_rt = true;
+
+	
+	m_raytracing.Setup(500, 500);
+	m_raytracing.Compute();
 }
